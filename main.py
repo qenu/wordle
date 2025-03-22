@@ -2,6 +2,9 @@ import requests
 from wordle_game import WordleGame
 from wordle_solver import WordleSolver
 
+guess_url = "https://gist.githubusercontent.com/dracos/dd0668f281e685bad51479e5acaadb93/raw/6bfa15d263d6d5b63840a8e5b64e04b382fdb079/valid-wordle-words.txt"
+answer_url = "word_list.json"
+
 def load_word_lists():
     url = "https://raw.githubusercontent.com/tabatkins/wordle-list/main/words"
     response = requests.get(url)
