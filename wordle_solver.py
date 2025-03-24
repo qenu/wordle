@@ -41,7 +41,9 @@ class WordleSolver:
                     return False
                 found = False
                 for j in range(5):
-                    if not used[j] and word[j] == guess[i] and guess[j] != word[j]:
+                    if (not used[j]
+                            and word[j] == guess[i]
+                            and guess[j] != word[j]):
                         used[j] = True
                         found = True
                         break
@@ -113,7 +115,10 @@ class WordleSolver:
             for w in self.candidates:
                 for i, c in enumerate(w):
                     position_counts[i][c]
-            return sum(position_counts[i][c] for i, c in enumerate(word)) * 0.0001
+            return sum(
+                position_counts[i][c]
+                for i, c in enumerate(word)
+                ) * 0.0001
 
         def is_candicate(word):
             return 0.01 if word in self.candidates else 0
