@@ -20,6 +20,8 @@ def main():
     answer_words, guess_words = load_word_lists()
     solver = WordleSolver(answer_words, guess_words)
 
+    answer_words = ['BODED', 'BOXER', 'COVER', 'FAKED', 'FAXED', 'FAZED', 'HAZED', 'JOKER']
+
     total_attempts = []
     game_lost = []
     for target_word in answer_words:  # Limit for testing
@@ -30,15 +32,16 @@ def main():
             remain_size = len(solver.candidates)
             guess = solver.suggest_guess()
             feedback = game.play_round(guess)
-            solver.process_feedback(guess, feedback)
             print(
                 f"Guess: {guess}, "
                 f"Feedback: {feedback}, "
                 f"Reduce: {(
                     1-(len(solver.candidates)/remain_size)
-                    )*100:.2f}%, "
-                f"Remain: {len(solver.candidates)}"
+                    )*100:>5.2f}%, "
+                f"Remain: {len(solver.candidates):>4}, "
+                f"Entropy: {solver.compute_entropy(guess):.3f}"
             )
+            solver.process_feedback(guess, feedback)
 
         attempts = game.attempts
         total_attempts.append(attempts)
