@@ -8,6 +8,11 @@ me fucking with wordle bc why not
     Ran Attempts: 11,396
     Max Attempts: 6
     Avg Attempts: 3.57
+
+    Total Time: 201.16s
+    Avg Time: 0.06s
+    Max Time: 8.21s
+
     Lost: None
 
 ## Attempt Distribution
