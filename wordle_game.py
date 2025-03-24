@@ -6,25 +6,25 @@ class WordleGame:
         self.won = False
 
     def get_feedback(self, guess: str) -> str:
-        feedback = ['b'] * 5
+        feedback = ["b"] * 5
         answer_chars = list(self.target_word)
 
         for i in range(5):
             if guess[i] == self.target_word[i]:
-                feedback[i] = 'g'
+                feedback[i] = "g"
                 answer_chars[i] = None
 
         for i in range(5):
-            if feedback[i] == 'b' and guess[i] in answer_chars:
-                feedback[i] = 'y'
+            if feedback[i] == "b" and guess[i] in answer_chars:
+                feedback[i] = "y"
                 answer_chars[answer_chars.index(guess[i])] = None
 
-        return ''.join(feedback)
+        return "".join(feedback)
 
     def play_round(self, guess: str) -> str:
         self.attempts += 1
-        feedback = self.get_feedback(guess)
-        if feedback == 'ggggg':
+        feedback = self.get_feedback(guess.upper())
+        if feedback == "ggggg":
             self.won = True
         return feedback
 

@@ -1,24 +1,27 @@
-import requests
+import json
+
 from wordle_game import WordleGame
 from wordle_solver import WordleSolver
 
-guess_url = "https://gist.githubusercontent.com/dracos/dd0668f281e685bad51479e5acaadb93/raw/6bfa15d263d6d5b63840a8e5b64e04b382fdb079/valid-wordle-words.txt"
-answer_url = "word_list.json"
+guess_json = "guess.json"
+answer_json = "answer.json"
+
 
 def load_word_lists():
-    url = "https://raw.githubusercontent.com/tabatkins/wordle-list/main/words"
-    response = requests.get(url)
-    words = response.text.splitlines()
-    answer_words = words[:2315]
-    guess_words = words
+    with open(guess_json) as file:
+        guess_words = json.load(file)
+    with open(answer_json) as file:
+        answer_words = json.load(file)
     return answer_words, guess_words
+
 
 def main():
     answer_words, guess_words = load_word_lists()
     solver = WordleSolver(answer_words, guess_words)
 
     total_attempts = []
-    for target_word in answer_words[:10]:  # Limit for testing
+    failures = []
+    for target_word in answer_words[:500]:  # Limit for testing
         game = WordleGame(target_word)
         solver.reset()
         print(f"Target word: {target_word}")
@@ -32,9 +35,13 @@ def main():
         attempts = game.attempts
         total_attempts.append(attempts)
         print(f"Result: {'WIN' if game.won else 'FAIL'} in {attempts} attempts\n")
+        if not game.won:
+            failures.append(target_word)
 
     print(f"Max Attempts: {max(total_attempts)}")
     print(f"Avg Attempts: {sum(total_attempts) / len(total_attempts):.2f}")
+    print(f"Fails: {failures}")
+
 
 if __name__ == "__main__":
     main()
