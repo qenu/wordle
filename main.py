@@ -42,7 +42,8 @@ def main():
 
         attempts = game.attempts
         total_attempts.append(attempts)
-        print(f"Result: {'WIN' if game.won else 'FAIL'} in {attempts} attempts\n")
+        result = 'WIN' if game.won else 'FAIL'
+        print(f"Result: {result} in {attempts} attempts\n")
         if not game.won:
             game_lost.append(target_word)
 
