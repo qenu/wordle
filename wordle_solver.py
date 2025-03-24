@@ -16,6 +16,7 @@ class WordleSolver:
         self.current_route = ""
 
     def process_feedback(self, guess: str, feedback: str):
+        guess = guess.upper()
         self.candidates = [
             word
             for word in self.candidates
